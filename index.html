@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0d4f59">
+  <meta name="description" content="高校数学を小さなステップから。数学Ⅰの2次関数・平方完成を解説、4択演習、復習で学べる無料Web学習サービス。">
+  <title>夢中になる高校数学 | 平方完成を一歩ずつ</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="questions.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">本文へスキップ</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#home" class="brand" data-route="home" aria-label="夢中になる高校数学 ホーム">
+        <span class="brand-mark">∑</span>
+        <span><strong>夢中になる高校数学</strong><small>高校数学を、手応えのある学びへ。</small></span>
+      </a>
+      <nav class="header-links" aria-label="主なメニュー">
+        <button type="button" data-route="learn">解説</button>
+        <button type="button" data-route="practice">演習</button>
+        <button type="button" data-route="review">復習</button>
+        <button type="button" data-route="records">記録</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" id="main">
+    <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+
+    <section id="view-home" class="view">
+      <div class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">数学Ⅰ / 2次関数 / 学習Web v1</p>
+          <h1>できた、が積み重なる。<br><span>高校数学の第一歩。</span></h1>
+          <p class="hero-lead">中学の展開からつながる「平方完成」を、解説→1問ずつの演習→復習で理解します。</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" type="button" data-route="learn">解説からはじめる <span aria-hidden="true">→</span></button>
+            <button class="btn btn-outline" type="button" data-route="practice">すぐに演習する</button>
+          </div>
+          <p class="subtle">会員登録不要・広告なし・外部APIなし。学習記録はこのブラウザ内に保存します。</p>
+        </div>
+        <div class="hero-art" aria-label="平方完成の例">
+          <div class="art-overline">今日のテーマ</div>
+          <div class="art-equation">y = x² − 6x + 5</div>
+          <div class="art-arrow">↓ 平方完成する</div>
+          <div class="art-equation focus">y = (x − 3)² − 4</div>
+          <div class="art-vertex">頂点 <b>(3, −4)</b></div>
+          <svg class="graph" viewBox="0 0 260 116" aria-hidden="true"><line x1="15" y1="64" x2="245" y2="64" stroke="#9cc3c5" stroke-width="1.5"/><line x1="65" y1="9" x2="65" y2="111" stroke="#9cc3c5" stroke-width="1.5"/><path d="M 50 3 Q 130 194 210 3" fill="none" stroke="#ffbd78" stroke-width="4" stroke-linecap="round"/><circle cx="130" cy="98.5" r="5" fill="#ffbd78"/><text x="142" y="105" fill="#e6f8f8" font-size="12">頂点</text></svg>
+        </div>
+      </div>
+      <div class="stat-grid" aria-label="学習状況">
+        <div class="stat"><span>取り組んだ問題</span><strong id="stat-attempted">0 <small>/ 32</small></strong></div>
+        <div class="stat"><span>定着の目安</span><strong id="stat-mastered">0 <small>問</small></strong></div>
+        <div class="stat"><span>今日の復習</span><strong id="stat-due">0 <small>問</small></strong></div>
+      </div>
+      <div class="section-title"><p class="eyebrow">LEARNING FLOW</p><h2>3つのステップで進める</h2></div>
+      <div class="step-grid">
+        <button type="button" class="step-card" data-route="learn"><span class="step-index">01</span><h3>仕組みを知る</h3><p>展開を逆から考え、平方完成の手順を理解。</p><span class="step-link">解説を見る →</span></button>
+        <button type="button" class="step-card" data-route="practice"><span class="step-index">02</span><h3>1問ずつ解く</h3><p>4択で頂点を答え、その場で解法を確認。</p><span class="step-link">問題に挑戦 →</span></button>
+        <button type="button" class="step-card" data-route="review"><span class="step-index">03</span><h3>忘れる前に復習</h3><p>つまずいた問題と復習日が来た問題に再挑戦。</p><span class="step-link">復習する →</span></button>
+      </div>
+      <div class="home-panel">
+        <div><p class="eyebrow">CURRENT UNIT</p><h2>数学Ⅰ｜平方完成と頂点</h2><p>全32問（基本20問・標準12問）。他の単元は追加予定です。</p></div>
+        <div class="unit-status">学習可能 <span class="dot"></span></div>
+      </div>
+    </section>
+
+    <section id="view-learn" class="view" hidden>
+      <div class="page-heading"><p class="eyebrow">LESSON / 数学Ⅰ</p><h1>平方完成で頂点を求める</h1><p>中学で学んだ展開を、逆向きに使う技術です。</p></div>
+      <div class="lesson-layout">
+        <article class="lesson-card">
+          <div class="lesson-label">STEP 01 / 中学数学からつなぐ</div>
+          <h2>まず (x + 3)² を展開する</h2>
+          <div class="formula">(x + 3)² = x² + 6x + 9</div>
+          <p>逆に見ると、<b>x² + 6x = (x + 3)² − 9</b> です。最後に「+9した分を−9する」ことで、式の値を変えずに平方の形にできます。</p>
+          <div class="note">コツ：x の係数の <b>半分</b> をカッコに入れて、最後に2乗分を調整する。</div>
+        </article>
+        <article class="lesson-card">
+          <div class="lesson-label">STEP 02 / 実際に変形する</div>
+          <h2>y = x² − 6x + 5 を変える</h2>
+          <div class="formula-lines"><span>① x の係数 −6 の半分は −3</span><span>② x² − 6x = (x − 3)² − 9</span><span>③ y = (x − 3)² − 9 + 5</span><strong>④ y = (x − 3)² − 4</strong></div>
+          <p>頂点は <b>(3, −4)</b>。カッコ内が 0 になる x が3で、そのときの y は−4です。</p>
+        </article>
+        <article class="lesson-card">
+          <div class="lesson-label">STEP 03 / x²の係数が1ではないとき</div>
+          <h2>先に x² の係数でくくる</h2>
+          <div class="formula-lines"><span>y = 2x² − 8x + 3</span><span>= 2(x² − 4x) + 3</span><span>= 2[(x − 2)² − 4] + 3</span><strong>= 2(x − 2)² − 5</strong></div>
+          <p>頂点は <b>(2, −5)</b>。係数が負なら放物線は下向きですが、頂点の読み取り方は同じです。</p>
+        </article>
+        <div class="lesson-cta"><div><h2>理解できたら、問題で確かめる</h2><p>まずは基本問題5問から取り組みましょう。</p></div><button class="btn btn-primary" type="button" id="start-from-lesson">基本5問を解く →</button></div>
+      </div>
+    </section>
+
+    <section id="view-practice" class="view" hidden>
+      <div class="page-heading"><p class="eyebrow">PRACTICE / 数学Ⅰ</p><h1>平方完成の問題演習</h1><p>答えを選ぶと、すぐに考え方を確認できます。</p></div>
+      <div id="practice-setup" class="setup-card">
+        <h2>今回の演習を設定</h2><div class="setup-group"><div class="label-title">問題の範囲</div><div class="segmented" role="group" aria-label="問題の範囲"><button type="button" class="active" data-level="basic" aria-pressed="true">基本（係数 ±1）</button><button type="button" data-level="all" aria-pressed="false">基本＋標準</button></div></div>
+        <div class="setup-group"><div class="label-title">問題数</div><div class="segmented" role="group" aria-label="問題数"><button type="button" class="active" data-count="5" aria-pressed="true">5問</button><button type="button" data-count="10" aria-pressed="false">10問</button></div></div>
+        <p class="small-help">未挑戦の問題を優先します。繰り返し取り組むと、到達度が更新されます。</p>
+        <button class="btn btn-primary full-on-small" type="button" id="start-practice">演習をはじめる →</button>
+      </div>
+      <div id="question-panel" class="question-card" hidden>
+        <div class="question-bar"><span id="question-position">1 / 5</span><span id="question-level" class="chip">基本</span></div>
+        <div class="progress-track"><span id="session-progress"></span></div>
+        <p class="question-eyebrow">次の2次関数の頂点を答えましょう。</p>
+        <h2 id="question-prompt" class="question-prompt" tabindex="-1"></h2>
+        <div id="answer-options" class="answer-grid" role="group" aria-label="答えを選択"></div>
+        <div id="explanation" class="explanation" hidden tabindex="-1"></div>
+        <div class="question-bottom"><button type="button" class="btn btn-soft" id="leave-session">演習を終了</button><button type="button" class="btn btn-primary" id="next-question" hidden>次の問題へ →</button></div>
+      </div>
+      <div id="session-end" class="end-card" hidden></div>
+    </section>
+
+    <section id="view-review" class="view" hidden>
+      <div class="page-heading"><p class="eyebrow">REVIEW</p><h1>今日の復習</h1><p>復習日が来た問題を優先して、解ける状態を保ちます。</p></div>
+      <div class="review-grid"><div class="review-kpi"><span>今日の復習対象</span><strong id="review-due">0</strong><p>予定日が今日以前の問題</p></div><div class="review-kpi"><span>見直したい問題</span><strong id="review-weak">0</strong><p>直近でつまずいた問題</p></div></div>
+      <div class="review-actions"><button class="btn btn-primary" type="button" id="start-review-due">今日の復習をはじめる →</button><button class="btn btn-outline" type="button" id="start-review-weak">つまずいた問題を解く</button></div>
+      <p id="review-message" class="small-help"></p>
+      <div class="list-card"><h2>復習予定の一覧</h2><div id="review-list"></div></div>
+    </section>
+
+    <section id="view-records" class="view" hidden>
+      <div class="page-heading"><p class="eyebrow">LEARNING RECORDS</p><h1>学びの記録</h1><p>正解した回数だけでなく、定着へ進んだ問題数を確かめられます。</p></div>
+      <div class="records-grid"><div class="stat"><span>初めて挑戦した問題</span><strong id="records-tried">0</strong></div><div class="stat"><span>総回答回数</span><strong id="records-answers">0</strong></div><div class="stat"><span>学習が進んだ問題</span><strong id="records-growing">0</strong></div><div class="stat"><span>定着の目安</span><strong id="records-mastered">0</strong></div></div>
+      <div class="list-card"><h2>習得段階</h2><p class="muted">学習の回数と復習の結果に基づく目安です。学力を保証する指標ではありません。</p><div id="stage-visual"></div></div>
+      <div class="list-card"><h2>学習記録の管理</h2><p>記録はこの端末・ブラウザ内にだけ保存します。別端末へ引き継ぐ場合はJSONを保存し、移行先で読み込んでください。</p><div class="record-buttons"><button class="btn btn-outline" type="button" id="export-records">JSONを書き出す</button><label class="btn btn-outline file-label">JSONを読み込む <input type="file" id="import-records" accept=".json,application/json"></label><button class="btn btn-danger" type="button" id="clear-records">記録を削除</button></div><p class="small-help">取り込みは既存の記録を上書きします。取り込み前に書き出しを推奨します。</p></div>
+    </section>
+
+    <section class="booth-section" aria-labelledby="booth-title"><div><p class="eyebrow">STUDY MATERIALS</p><h2 id="booth-title">もっと深く学ぶための教材</h2><p>詳しい途中式・演習・復習用のPDF教材を制作予定です。高校数学の商品はまだ公開していません。</p></div><a class="btn btn-outline" href="https://studyworks.booth.pm/" target="_blank" rel="noopener noreferrer">BOOTHショップを見る <span class="sr-only">（別のタブで開く）</span> ↗</a></section>
+  </main>
+  <footer class="site-footer"><div class="container"><p>夢中になる高校数学 <span>学習Web v1 ・ 2026</span></p><p>数学Ⅰ「平方完成・頂点」先行公開版 / 全32問</p></div></footer>
+</body>
+</html>
