@@ -130,18 +130,26 @@
   function renderLearn() {
     $('#lesson-sq').hidden = setup.unit !== 'SQ';
     $('#lesson-ex').hidden = setup.unit !== 'EX';
-    $('#learn-heading').textContent = setup.unit === 'SQ' ? '平方完成で頂点を求める' : '2次関数の最大・最小を求める';
-    $('#learn-intro').textContent = setup.unit === 'SQ' ? '中学で学んだ展開を、逆向きに使う技術です。' : '頂点と定義域を確認して、最大値と最小値を求めます。';
+    $('#lesson-di').hidden = setup.unit !== 'DI';
+    const lessons = {
+      SQ: ['平方完成で頂点を求める', '中学で学んだ展開を、逆向きに使う技術です。'],
+      EX: ['2次関数の最大・最小を求める', '頂点と定義域を確認して、最大値と最小値を求めます。'],
+      DI: ['判別式とx軸との共有点', 'D = b² − 4ac を使って、共有点の個数と文字mの条件を求めます。']
+    };
+    [$('#learn-heading').textContent, $('#learn-intro').textContent] = lessons[setup.unit];
     chooseSetup('data-lesson', setup.unit);
   }
   function renderPracticeHeading() {
-    $('#practice-heading').textContent = setup.unit === 'SQ' ? '平方完成の問題演習' : '最大・最小の問題演習';
-    $('#option-level-basic').textContent = setup.unit === 'SQ' ? '基本（係数 ±1）' : '基本（定義域なし）';
-    $('#option-level-all').textContent = setup.unit === 'SQ' ? '基本＋標準' : '基本＋標準（定義域あり）';
+    const labels = {
+      SQ: ['平方完成の問題演習', '基本（係数 ±1）', '基本＋標準'],
+      EX: ['最大・最小の問題演習', '基本（定義域なし）', '基本＋標準（定義域あり）'],
+      DI: ['判別式の問題演習', '基本（共有点の個数）', '基本＋標準（文字mの条件）']
+    };
+    [$('#practice-heading').textContent, $('#option-level-basic').textContent, $('#option-level-all').textContent] = labels[setup.unit];
     chooseSetup('data-unit', setup.unit);
   }
   function switchUnit(unit) {
-    if (!['SQ','EX'].includes(unit)) return;
+    if (!['SQ','EX','DI'].includes(unit)) return;
     setup.unit = unit;
     setup.level = 'basic';
     chooseSetup('data-level', setup.level);
@@ -151,8 +159,9 @@
   $$('[data-unit]').forEach(btn => btn.addEventListener('click', () => switchUnit(btn.dataset.unit)));
   $$('[data-lesson]').forEach(btn => btn.addEventListener('click', () => switchUnit(btn.dataset.lesson)));
   $$('[data-unit-open]').forEach(btn => btn.addEventListener('click', () => {
-    switchUnit('EX');
-    view(btn.dataset.unitOpen === 'learn-ex' ? 'learn' : 'practice');
+    const action = btn.dataset.unitOpen;
+    switchUnit(action.endsWith('-di') ? 'DI' : 'EX');
+    view(action.startsWith('learn-') ? 'learn' : 'practice');
   }));
 
   function chooseSetup(attr, value) {
@@ -202,6 +211,7 @@
     }
     session = {ids: problems.map(p => p.id), index: 0, correct: 0, newCount: 0, kind, lastAnswered: false};
     view('practice');
+    if (kind !== 'practice') $('#practice-heading').textContent = '復習演習（全単元）';
     $('#practice-setup').hidden = true;
     $('#session-end').hidden = true;
     $('#question-panel').hidden = false;
@@ -222,6 +232,13 @@
     chooseSetup('data-count', 5);
     startSession(pickPractice(), 'practice');
   });
+  $('#start-discriminant-from-lesson').addEventListener('click', () => {
+    switchUnit('DI');
+    setup.level = 'basic'; setup.count = 5;
+    chooseSetup('data-level', 'basic');
+    chooseSetup('data-count', 5);
+    startSession(pickPractice(), 'practice');
+  });
   function currentQ() { return BY_ID[session.ids[session.index]]; }
   function renderQuestion() {
     const q = currentQ();
@@ -230,7 +247,7 @@
     $('#question-level').textContent = q.level === 'basic' ? '基本' : '標準';
     $('#session-progress').style.width = `${100 * session.index / session.ids.length}%`;
     $('#question-prompt').textContent = q.prompt;
-    $('#question-topic').textContent = (q.unitId || 'SQ') === 'SQ' ? '次の2次関数の頂点を答えましょう。' : '2次関数の最大値・最小値を求めましょう。';
+    $('#question-topic').textContent = {SQ:'次の2次関数の頂点を答えましょう。', EX:'2次関数の最大値・最小値を求めましょう。', DI:'判別式を使って考えましょう。'}[q.unitId || 'SQ'];
     $('#answer-options').hidden = false;
     $('#explanation').hidden = true;
     $('#next-question').hidden = true;

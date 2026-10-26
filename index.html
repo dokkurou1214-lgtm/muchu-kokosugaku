@@ -4,12 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0d4f59">
-  <meta name="description" content="高校数学を小さなステップから。数学Ⅰの平方完成と2次関数の最大・最小を解説、4択演習、復習で学べる無料Web学習サービス。">
-  <title>夢中になる高校数学 | 平方完成と最大・最小</title>
+  <meta name="description" content="高校数学を小さなステップから。数学Ⅰの平方完成・2次関数の最大最小・判別式を解説、4択演習、復習で学べる無料Web学習サービス。">
+  <title>夢中になる高校数学 | 平方完成・最大最小・判別式</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
   <script defer src="questions.js"></script>
   <script defer src="extrema-questions.js"></script>
+  <script defer src="discriminant-questions.js"></script>
   <script defer src="app.js"></script>
 </head>
 <body>
@@ -35,9 +36,9 @@
     <section id="view-home" class="view">
       <div class="hero">
         <div class="hero-copy">
-          <p class="eyebrow">数学Ⅰ / 2次関数 / 学習Web v1.1</p>
+          <p class="eyebrow">数学Ⅰ / 2次関数 / 学習Web v1.2</p>
           <h1>できた、が積み重なる。<br><span>高校数学の第一歩。</span></h1>
-          <p class="hero-lead">「平方完成」から「最大・最小」へ。解説→1問ずつの演習→復習で理解します。</p>
+          <p class="hero-lead">平方完成から最大・最小、さらにx軸との共有点へ。解説→演習→復習で着実に学びます。</p>
           <div class="hero-actions">
             <button class="btn btn-primary" type="button" data-route="learn">解説からはじめる <span aria-hidden="true">→</span></button>
             <button class="btn btn-outline" type="button" data-route="practice">すぐに演習する</button>
@@ -54,14 +55,14 @@
         </div>
       </div>
       <div class="stat-grid" aria-label="学習状況">
-        <div class="stat"><span>取り組んだ問題</span><strong id="stat-attempted">0 <small>/ 76</small></strong></div>
+        <div class="stat"><span>取り組んだ問題</span><strong id="stat-attempted">0 <small>/ 124</small></strong></div>
         <div class="stat"><span>定着の目安</span><strong id="stat-mastered">0 <small>問</small></strong></div>
         <div class="stat"><span>今日の復習</span><strong id="stat-due">0 <small>問</small></strong></div>
       </div>
       <div class="section-title"><p class="eyebrow">LEARNING FLOW</p><h2>3つのステップで進める</h2></div>
       <div class="step-grid">
         <button type="button" class="step-card" data-route="learn"><span class="step-index">01</span><h3>仕組みを知る</h3><p>展開を逆から考え、平方完成の手順を理解。</p><span class="step-link">解説を見る →</span></button>
-        <button type="button" class="step-card" data-route="practice"><span class="step-index">02</span><h3>1問ずつ解く</h3><p>4択で頂点を答え、その場で解法を確認。</p><span class="step-link">問題に挑戦 →</span></button>
+        <button type="button" class="step-card" data-route="practice"><span class="step-index">02</span><h3>1問ずつ解く</h3><p>4択で考え方を確かめ、その場で解法を確認。</p><span class="step-link">問題に挑戦 →</span></button>
         <button type="button" class="step-card" data-route="review"><span class="step-index">03</span><h3>忘れる前に復習</h3><p>つまずいた問題と復習日が来た問題に再挑戦。</p><span class="step-link">復習する →</span></button>
       </div>
       <div class="home-panel">
@@ -72,11 +73,15 @@
         <div><p class="eyebrow">NEW UNIT</p><h2>数学Ⅰ｜2次関数の最大・最小</h2><p>全44問（基本12問・標準32問）。定義域のある場合まで対応。</p></div>
         <div class="unit-cta"><button class="btn btn-outline" type="button" data-unit-open="learn-ex">解説を見る →</button><button class="btn btn-primary" type="button" data-unit-open="practice-ex">演習する →</button></div>
       </div>
+      <div class="home-panel third-unit">
+        <div><p class="eyebrow">NEW UNIT</p><h2>数学Ⅰ｜判別式とx軸との共有点</h2><p>全48問（基本24問・標準24問）。実数解の個数と文字mの条件を学びます。</p></div>
+        <div class="unit-cta"><button class="btn btn-outline" type="button" data-unit-open="learn-di">解説を見る →</button><button class="btn btn-primary" type="button" data-unit-open="practice-di">演習する →</button></div>
+      </div>
     </section>
 
     <section id="view-learn" class="view" hidden>
       <div class="page-heading"><p class="eyebrow">LESSON / 数学Ⅰ</p><h1 id="learn-heading">平方完成で頂点を求める</h1><p id="learn-intro">中学で学んだ展開を、逆向きに使う技術です。</p></div>
-      <div class="unit-tabs" role="group" aria-label="学習する単元"><button type="button" data-lesson="SQ" aria-pressed="true" class="active">平方完成・頂点</button><button type="button" data-lesson="EX" aria-pressed="false">最大・最小</button></div>
+      <div class="unit-tabs" role="group" aria-label="学習する単元"><button type="button" data-lesson="SQ" aria-pressed="true" class="active">平方完成・頂点</button><button type="button" data-lesson="EX" aria-pressed="false">最大・最小</button><button type="button" data-lesson="DI" aria-pressed="false">判別式・共有点</button></div>
       <div id="lesson-sq" class="lesson-layout">
         <article class="lesson-card">
           <div class="lesson-label">STEP 01 / 中学数学からつなぐ</div>
@@ -125,13 +130,43 @@
         </article>
         <div class="lesson-cta"><div><h2>最大・最小の基本を練習</h2><p>まずは定義域なしの基本5問から。</p></div><button class="btn btn-primary" type="button" id="start-extrema-from-lesson">基本5問を解く →</button></div>
       </div>
+      <div id="lesson-di" class="lesson-layout" hidden>
+        <article class="lesson-card">
+          <div class="lesson-label">STEP 01 / グラフと方程式のつながり</div>
+          <h2>x軸との共有点は「y = 0」で考える</h2>
+          <div class="formula">y = x² − 4x + 3</div>
+          <p>x軸上では y = 0 です。つまり <b>x² − 4x + 3 = 0</b> の実数解が、グラフとx軸の共有点のx座標になります。</p>
+          <div class="formula-lines"><span>x² − 4x + 3 = (x − 1)(x − 3)</span><strong>x = 1、3 の2つの実数解</strong><span>したがって共有点は2個です。</span></div>
+        </article>
+        <article class="lesson-card">
+          <div class="lesson-label">STEP 02 / 判別式を使う</div>
+          <h2>D = b² − 4ac の符号を見る</h2>
+          <div class="formula">ax² + bx + c = 0 （a ≠ 0）</div>
+          <div class="formula-lines"><strong>D = b² − 4ac</strong><span>D &gt; 0：共有点は2個（異なる2点で交わる）</span><span>D = 0：共有点は1個（接する）</span><span>D &lt; 0：共有点は0個（交わらない）</span></div>
+          <p>平方根の中が0より大きいか、ちょうど0か、負になるかで実数解の個数が決まります。</p>
+        </article>
+        <article class="lesson-card">
+          <div class="lesson-label">STEP 03 / 実際に計算する</div>
+          <h2>同じ二次関数でも定数項で変わる</h2>
+          <div class="formula-lines"><span>y = x² − 4x + 3：D = 16 − 12 = 4 → 2個</span><span>y = x² − 4x + 4：D = 16 − 16 = 0 → 1個</span><strong>y = x² − 4x + 5：D = 16 − 20 = −4 → 0個</strong></div>
+          <p>係数 a・b・c を正しく読み取り、bが負でも <b>b² は0以上</b>であることに注意しましょう。</p>
+        </article>
+        <article class="lesson-card">
+          <div class="lesson-label">STEP 04 / 文字mの条件</div>
+          <h2>Dをmの式にして、不等式を解く</h2>
+          <div class="formula">y = x² − 4x + m + 1</div>
+          <div class="formula-lines"><span>D = (−4)² − 4(m + 1) = 12 − 4m</span><span>2個：D &gt; 0 → m &lt; 3</span><span>1個：D = 0 → m = 3</span><strong>0個：D &lt; 0 → m &gt; 3</strong></div>
+          <div class="note">不等式を負の数で割ると、不等号の向きが逆になる点に注意。</div>
+        </article>
+        <div class="lesson-cta"><div><h2>判別式を使ってみよう</h2><p>まずは共有点の個数を求める基本5問から。</p></div><button class="btn btn-primary" type="button" id="start-discriminant-from-lesson">基本5問を解く →</button></div>
+      </div>
     </section>
 
     <section id="view-practice" class="view" hidden>
       <div class="page-heading"><p class="eyebrow">PRACTICE / 数学Ⅰ</p><h1 id="practice-heading">平方完成の問題演習</h1><p>答えを選ぶと、すぐに考え方を確認できます。</p></div>
       <div id="practice-setup" class="setup-card">
         <h2>今回の演習を設定</h2>
-        <div class="setup-group"><div class="label-title">学習する単元</div><div class="segmented" role="group" aria-label="学習する単元"><button type="button" data-unit="SQ" class="active" aria-pressed="true">平方完成・頂点</button><button type="button" data-unit="EX" aria-pressed="false">最大・最小</button></div></div>
+        <div class="setup-group"><div class="label-title">学習する単元</div><div class="segmented" role="group" aria-label="学習する単元"><button type="button" data-unit="SQ" class="active" aria-pressed="true">平方完成・頂点</button><button type="button" data-unit="EX" aria-pressed="false">最大・最小</button><button type="button" data-unit="DI" aria-pressed="false">判別式・共有点</button></div></div>
         <div class="setup-group"><div class="label-title">問題の範囲</div><div class="segmented" role="group" aria-label="問題の範囲"><button type="button" class="active" data-level="basic" aria-pressed="true" id="option-level-basic">基本（係数 ±1）</button><button type="button" data-level="all" aria-pressed="false" id="option-level-all">基本＋標準</button></div></div>
         <div class="setup-group"><div class="label-title">問題数</div><div class="segmented" role="group" aria-label="問題数"><button type="button" class="active" data-count="5" aria-pressed="true">5問</button><button type="button" data-count="10" aria-pressed="false">10問</button></div></div>
         <p class="small-help">未挑戦の問題を優先します。繰り返し取り組むと、到達度が更新されます。</p>
@@ -166,6 +201,6 @@
 
     <section class="booth-section" aria-labelledby="booth-title"><div><p class="eyebrow">STUDY MATERIALS</p><h2 id="booth-title">もっと深く学ぶための教材</h2><p>詳しい途中式・演習・復習用のPDF教材を制作予定です。高校数学の商品はまだ公開していません。</p></div><a class="btn btn-outline" href="https://studyworks.booth.pm/" target="_blank" rel="noopener noreferrer">BOOTHショップを見る <span class="sr-only">（別のタブで開く）</span> ↗</a></section>
   </main>
-  <footer class="site-footer"><div class="container"><p>夢中になる高校数学 <span>学習Web v1.1 ・ 2026</span></p><p>数学Ⅰ「平方完成・頂点」「最大・最小」 / 全76問</p></div></footer>
+  <footer class="site-footer"><div class="container"><p>夢中になる高校数学 <span>学習Web v1.2 ・ 2026</span></p><p>数学Ⅰ「平方完成・頂点」「最大・最小」「判別式・共有点」 / 全124問</p></div></footer>
 </body>
 </html>
