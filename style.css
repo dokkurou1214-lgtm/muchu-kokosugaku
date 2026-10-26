@@ -102,3 +102,15 @@ main{padding-block:40px 65px}.view{animation:show .2s ease-out}
 @media(max-width:850px){.hero{grid-template-columns:1fr;gap:24px}.hero-art{width:100%;max-width:600px;min-height:unset}.step-card{min-height:238px;padding:22px}.records-grid{grid-template-columns:repeat(2,1fr)}.brand strong{font-size:15px}.header-links button{padding:8px 10px}}
 @media(max-width:620px){.container{width:min(100% - 28px,1120px)}.site-header{position:static}.header-inner{display:block;padding:13px 0}.brand{justify-content:center}.header-links{margin-top:12px;justify-content:space-between;gap:1px;background:#f5f9f8;border-radius:10px}.header-links button{flex:1;padding:9px 0;font-size:12px}main{padding-block:22px 50px}.hero{padding:12px 0 20px}.hero h1{font-size:31px}.hero-lead{font-size:14px}.hero-art{padding:23px 23px 18px;border-radius:17px}.art-equation{font-size:25px}.stat-grid{gap:7px}.stat{padding:13px 9px;border-radius:12px}.stat>span{font-size:10px}.stat strong{font-size:22px}.stat strong small{font-size:10px}.section-title{margin-top:43px}.section-title h2{font-size:24px}.step-grid{grid-template-columns:1fr;gap:10px}.step-card{min-height:0;padding:21px}.step-card h3{margin-top:9px}.home-panel{padding:21px;align-items:flex-start}.home-panel h2{font-size:18px}.unit-status{font-size:10px}.page-heading h1{font-size:28px}.lesson-card,.setup-card,.question-card,.end-card,.list-card{padding:22px 18px}.lesson-card h2{font-size:19px}.lesson-cta{flex-direction:column;align-items:stretch;padding:20px}.full-on-small{width:100%}.question-prompt{font-size:24px}.answer-grid{grid-template-columns:1fr;gap:10px}.answer-option{min-height:60px;font-size:18px}.review-grid{gap:9px}.review-kpi{padding:17px}.review-kpi strong{font-size:30px}.review-row strong{font-size:13px}.review-tag{font-size:10px}.records-grid{gap:9px}.records-grid .stat{padding:14px}.record-buttons{flex-direction:column;align-items:stretch}.booth-section{padding:22px;display:block;margin-top:54px}.booth-section .btn{margin-top:18px}.site-footer .container{display:block}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;scroll-behavior:auto!important;transition:none!important}}
+/* v1.1: two separately selectable mathematical units */
+.unit-tabs {display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}
+.unit-tabs button {background:white;border:1px solid var(--border);color:#466b6d;border-radius:10px;padding:12px 19px;font-size:14px;font-weight:800}
+.unit-tabs button.active,.unit-tabs button[aria-pressed="true"] {background:#e3f3f0;border-color:#0b6971;color:#096069}
+.second-unit {margin-top:12px;background:#edf5fa;border-color:#d9e6ee}
+.unit-cta {display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+@media (max-width:620px) {
+  .unit-cta {justify-content:flex-start}
+  .second-unit {display:block}
+  .second-unit .unit-cta {margin-top:14px}
+  .unit-tabs button {flex:1;padding:12px 10px;font-size:13px}
+}
