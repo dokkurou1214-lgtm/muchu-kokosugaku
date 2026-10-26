@@ -114,3 +114,7 @@ main{padding-block:40px 65px}.view{animation:show .2s ease-out}
   .second-unit .unit-cta {margin-top:14px}
   .unit-tabs button {flex:1;padding:12px 10px;font-size:13px}
 }
+
+/* v1.2: 判別式を3つ目の学習単元として追加 */
+.third-unit {margin-top:12px;background:#edf5fa;border-color:#d9e6ee}
+@media(max-width:620px){.third-unit{display:block}.third-unit .unit-cta{margin-top:14px}}
