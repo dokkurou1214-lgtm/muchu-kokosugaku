@@ -9,7 +9,7 @@
   const $ = sel => document.querySelector(sel);
 
   let data = loadData();
-  let setup = {level: 'basic', count: 5};
+  let setup = {unit: 'SQ', level: 'basic', count: 5};
   let session = null;
   let storageWarned = false;
 
@@ -109,6 +109,8 @@
     clearNotice();
     $$('.view').forEach(x => { x.hidden = x.id !== `view-${name}`; });
     $$('.header-links button').forEach(x => x.classList.toggle('nav-active', x.dataset.route === name));
+    if (name === 'learn') renderLearn();
+    if (name === 'practice') renderPracticeHeading();
     if (name === 'review') renderReview();
     if (name === 'records') renderRecords();
     if (name === 'practice' && !session) showSetup();
@@ -123,6 +125,34 @@
     if (session && !confirm('進行中の演習を終了して移動しますか？（回答済みの記録は保存されています）')) return;
     session = null;
     view(x.dataset.route);
+  }));
+
+  function renderLearn() {
+    $('#lesson-sq').hidden = setup.unit !== 'SQ';
+    $('#lesson-ex').hidden = setup.unit !== 'EX';
+    $('#learn-heading').textContent = setup.unit === 'SQ' ? '平方完成で頂点を求める' : '2次関数の最大・最小を求める';
+    $('#learn-intro').textContent = setup.unit === 'SQ' ? '中学で学んだ展開を、逆向きに使う技術です。' : '頂点と定義域を確認して、最大値と最小値を求めます。';
+    chooseSetup('data-lesson', setup.unit);
+  }
+  function renderPracticeHeading() {
+    $('#practice-heading').textContent = setup.unit === 'SQ' ? '平方完成の問題演習' : '最大・最小の問題演習';
+    $('#option-level-basic').textContent = setup.unit === 'SQ' ? '基本（係数 ±1）' : '基本（定義域なし）';
+    $('#option-level-all').textContent = setup.unit === 'SQ' ? '基本＋標準' : '基本＋標準（定義域あり）';
+    chooseSetup('data-unit', setup.unit);
+  }
+  function switchUnit(unit) {
+    if (!['SQ','EX'].includes(unit)) return;
+    setup.unit = unit;
+    setup.level = 'basic';
+    chooseSetup('data-level', setup.level);
+    renderPracticeHeading();
+    renderLearn();
+  }
+  $$('[data-unit]').forEach(btn => btn.addEventListener('click', () => switchUnit(btn.dataset.unit)));
+  $$('[data-lesson]').forEach(btn => btn.addEventListener('click', () => switchUnit(btn.dataset.lesson)));
+  $$('[data-unit-open]').forEach(btn => btn.addEventListener('click', () => {
+    switchUnit('EX');
+    view(btn.dataset.unitOpen === 'learn-ex' ? 'learn' : 'practice');
   }));
 
   function chooseSetup(attr, value) {
@@ -147,7 +177,7 @@
     $('#session-end').hidden = true;
   }
   function pickPractice() {
-    const pool = QUESTIONS.filter(q => setup.level === 'all' || q.level === 'basic');
+    const pool = QUESTIONS.filter(q => (q.unitId || 'SQ') === setup.unit && (setup.level === 'all' || q.level === 'basic'));
     const t = today();
     const sorted = pool.slice().sort((qa, qb) => {
       const pa = data.problems[qa.id], pb = data.problems[qb.id];
@@ -179,6 +209,14 @@
   }
   $('#start-practice').addEventListener('click', () => startSession(pickPractice(), 'practice'));
   $('#start-from-lesson').addEventListener('click', () => {
+    switchUnit('SQ');
+    setup.level = 'basic'; setup.count = 5;
+    chooseSetup('data-level', 'basic');
+    chooseSetup('data-count', 5);
+    startSession(pickPractice(), 'practice');
+  });
+  $('#start-extrema-from-lesson').addEventListener('click', () => {
+    switchUnit('EX');
     setup.level = 'basic'; setup.count = 5;
     chooseSetup('data-level', 'basic');
     chooseSetup('data-count', 5);
@@ -192,6 +230,7 @@
     $('#question-level').textContent = q.level === 'basic' ? '基本' : '標準';
     $('#session-progress').style.width = `${100 * session.index / session.ids.length}%`;
     $('#question-prompt').textContent = q.prompt;
+    $('#question-topic').textContent = (q.unitId || 'SQ') === 'SQ' ? '次の2次関数の頂点を答えましょう。' : '2次関数の最大値・最小値を求めましょう。';
     $('#answer-options').hidden = false;
     $('#explanation').hidden = true;
     $('#next-question').hidden = true;
@@ -288,9 +327,9 @@
       const p = document.createElement('p'); p.className = 'empty-list'; p.textContent = 'まずは基本5問に挑戦してみましょう。'; list.append(p);
       return;
     }
-    rows.slice(0,32).forEach(q => {
+    rows.slice(0,100).forEach(q => {
       const p = data.problems[q.id]; const line = document.createElement('div'); line.className = 'review-row';
-      const left = document.createElement('div'); const title = document.createElement('strong'); title.textContent = q.id + ' · ' + q.expression;
+      const left = document.createElement('div'); const title = document.createElement('strong'); title.textContent = q.unit + ' · ' + q.id + ' · ' + q.expression;
       const sub = document.createElement('span'); sub.textContent = `${stageName(p)} · 次回 ${p.due}`; left.append(title,sub);
       const flag = document.createElement('span'); flag.className = 'review-tag'; flag.textContent = p.due <= today() ? '今日の復習' : '見直し';
       line.append(left,flag); list.append(line);

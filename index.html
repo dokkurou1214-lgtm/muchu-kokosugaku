@@ -4,11 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0d4f59">
-  <meta name="description" content="高校数学を小さなステップから。数学Ⅰの2次関数・平方完成を解説、4択演習、復習で学べる無料Web学習サービス。">
-  <title>夢中になる高校数学 | 平方完成を一歩ずつ</title>
+  <meta name="description" content="高校数学を小さなステップから。数学Ⅰの平方完成と2次関数の最大・最小を解説、4択演習、復習で学べる無料Web学習サービス。">
+  <title>夢中になる高校数学 | 平方完成と最大・最小</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
   <script defer src="questions.js"></script>
+  <script defer src="extrema-questions.js"></script>
   <script defer src="app.js"></script>
 </head>
 <body>
@@ -34,9 +35,9 @@
     <section id="view-home" class="view">
       <div class="hero">
         <div class="hero-copy">
-          <p class="eyebrow">数学Ⅰ / 2次関数 / 学習Web v1</p>
+          <p class="eyebrow">数学Ⅰ / 2次関数 / 学習Web v1.1</p>
           <h1>できた、が積み重なる。<br><span>高校数学の第一歩。</span></h1>
-          <p class="hero-lead">中学の展開からつながる「平方完成」を、解説→1問ずつの演習→復習で理解します。</p>
+          <p class="hero-lead">「平方完成」から「最大・最小」へ。解説→1問ずつの演習→復習で理解します。</p>
           <div class="hero-actions">
             <button class="btn btn-primary" type="button" data-route="learn">解説からはじめる <span aria-hidden="true">→</span></button>
             <button class="btn btn-outline" type="button" data-route="practice">すぐに演習する</button>
@@ -53,7 +54,7 @@
         </div>
       </div>
       <div class="stat-grid" aria-label="学習状況">
-        <div class="stat"><span>取り組んだ問題</span><strong id="stat-attempted">0 <small>/ 32</small></strong></div>
+        <div class="stat"><span>取り組んだ問題</span><strong id="stat-attempted">0 <small>/ 76</small></strong></div>
         <div class="stat"><span>定着の目安</span><strong id="stat-mastered">0 <small>問</small></strong></div>
         <div class="stat"><span>今日の復習</span><strong id="stat-due">0 <small>問</small></strong></div>
       </div>
@@ -64,14 +65,19 @@
         <button type="button" class="step-card" data-route="review"><span class="step-index">03</span><h3>忘れる前に復習</h3><p>つまずいた問題と復習日が来た問題に再挑戦。</p><span class="step-link">復習する →</span></button>
       </div>
       <div class="home-panel">
-        <div><p class="eyebrow">CURRENT UNIT</p><h2>数学Ⅰ｜平方完成と頂点</h2><p>全32問（基本20問・標準12問）。他の単元は追加予定です。</p></div>
+        <div><p class="eyebrow">CURRENT UNIT</p><h2>数学Ⅰ｜平方完成と頂点</h2><p>全32問（基本20問・標準12問）。</p></div>
         <div class="unit-status">学習可能 <span class="dot"></span></div>
+      </div>
+      <div class="home-panel second-unit">
+        <div><p class="eyebrow">NEW UNIT</p><h2>数学Ⅰ｜2次関数の最大・最小</h2><p>全44問（基本12問・標準32問）。定義域のある場合まで対応。</p></div>
+        <div class="unit-cta"><button class="btn btn-outline" type="button" data-unit-open="learn-ex">解説を見る →</button><button class="btn btn-primary" type="button" data-unit-open="practice-ex">演習する →</button></div>
       </div>
     </section>
 
     <section id="view-learn" class="view" hidden>
-      <div class="page-heading"><p class="eyebrow">LESSON / 数学Ⅰ</p><h1>平方完成で頂点を求める</h1><p>中学で学んだ展開を、逆向きに使う技術です。</p></div>
-      <div class="lesson-layout">
+      <div class="page-heading"><p class="eyebrow">LESSON / 数学Ⅰ</p><h1 id="learn-heading">平方完成で頂点を求める</h1><p id="learn-intro">中学で学んだ展開を、逆向きに使う技術です。</p></div>
+      <div class="unit-tabs" role="group" aria-label="学習する単元"><button type="button" data-lesson="SQ" aria-pressed="true" class="active">平方完成・頂点</button><button type="button" data-lesson="EX" aria-pressed="false">最大・最小</button></div>
+      <div id="lesson-sq" class="lesson-layout">
         <article class="lesson-card">
           <div class="lesson-label">STEP 01 / 中学数学からつなぐ</div>
           <h2>まず (x + 3)² を展開する</h2>
@@ -93,12 +99,40 @@
         </article>
         <div class="lesson-cta"><div><h2>理解できたら、問題で確かめる</h2><p>まずは基本問題5問から取り組みましょう。</p></div><button class="btn btn-primary" type="button" id="start-from-lesson">基本5問を解く →</button></div>
       </div>
+      <div id="lesson-ex" class="lesson-layout" hidden>
+        <article class="lesson-card">
+          <div class="lesson-label">STEP 01 / 平方完成から考える</div>
+          <h2>上に開く・下に開くで決まる</h2>
+          <div class="formula">y = (x − 2)² − 1</div>
+          <p>(x − 2)² は0以上なので、x = 2で最小値 <b>−1</b> をとります。上に開く放物線には、x の範囲が指定されない場合、最大値はありません。</p>
+          <div class="formula">y = −(x + 1)² + 3</div>
+          <p>一方、−(x + 1)² は0以下なので、x = −1で最大値 <b>3</b> をとります。この場合、最小値はありません。</p>
+        </article>
+        <article class="lesson-card">
+          <div class="lesson-label">STEP 02 / 定義域がある場合</div>
+          <h2>両端と頂点を比較する</h2>
+          <div class="formula">y = (x − 1)² + 2 （−1 ≦ x ≦ 3）</div>
+          <div class="formula-lines"><span>左端 x = −1：y = 6</span><span>右端 x = 3：y = 6</span><span>頂点 x = 1：y = 2（定義域内）</span><strong>最大値 6、最小値 2</strong></div>
+          <p>最大値6をとる x は <b>−1と3の2つ</b>。端点の値が同じになることもあります。</p>
+        </article>
+        <article class="lesson-card">
+          <div class="lesson-label">STEP 03 / 頂点が範囲外のとき</div>
+          <h2>頂点を候補に入れない</h2>
+          <div class="formula">y = (x − 4)² + 1 （−1 ≦ x ≦ 2）</div>
+          <div class="formula-lines"><span>頂点 x = 4 は範囲外</span><span>左端 x = −1：y = 26</span><span>右端 x = 2：y = 5</span><strong>最大値 26、最小値 5</strong></div>
+          <p>頂点が範囲外にある場合は、その点の値を最大値・最小値の候補に含めません。</p>
+          <div class="note">手順：①平方完成 → ②頂点が定義域内か確認 → ③左右の端点と必要なら頂点を比較。</div>
+        </article>
+        <div class="lesson-cta"><div><h2>最大・最小の基本を練習</h2><p>まずは定義域なしの基本5問から。</p></div><button class="btn btn-primary" type="button" id="start-extrema-from-lesson">基本5問を解く →</button></div>
+      </div>
     </section>
 
     <section id="view-practice" class="view" hidden>
-      <div class="page-heading"><p class="eyebrow">PRACTICE / 数学Ⅰ</p><h1>平方完成の問題演習</h1><p>答えを選ぶと、すぐに考え方を確認できます。</p></div>
+      <div class="page-heading"><p class="eyebrow">PRACTICE / 数学Ⅰ</p><h1 id="practice-heading">平方完成の問題演習</h1><p>答えを選ぶと、すぐに考え方を確認できます。</p></div>
       <div id="practice-setup" class="setup-card">
-        <h2>今回の演習を設定</h2><div class="setup-group"><div class="label-title">問題の範囲</div><div class="segmented" role="group" aria-label="問題の範囲"><button type="button" class="active" data-level="basic" aria-pressed="true">基本（係数 ±1）</button><button type="button" data-level="all" aria-pressed="false">基本＋標準</button></div></div>
+        <h2>今回の演習を設定</h2>
+        <div class="setup-group"><div class="label-title">学習する単元</div><div class="segmented" role="group" aria-label="学習する単元"><button type="button" data-unit="SQ" class="active" aria-pressed="true">平方完成・頂点</button><button type="button" data-unit="EX" aria-pressed="false">最大・最小</button></div></div>
+        <div class="setup-group"><div class="label-title">問題の範囲</div><div class="segmented" role="group" aria-label="問題の範囲"><button type="button" class="active" data-level="basic" aria-pressed="true" id="option-level-basic">基本（係数 ±1）</button><button type="button" data-level="all" aria-pressed="false" id="option-level-all">基本＋標準</button></div></div>
         <div class="setup-group"><div class="label-title">問題数</div><div class="segmented" role="group" aria-label="問題数"><button type="button" class="active" data-count="5" aria-pressed="true">5問</button><button type="button" data-count="10" aria-pressed="false">10問</button></div></div>
         <p class="small-help">未挑戦の問題を優先します。繰り返し取り組むと、到達度が更新されます。</p>
         <button class="btn btn-primary full-on-small" type="button" id="start-practice">演習をはじめる →</button>
@@ -106,7 +140,7 @@
       <div id="question-panel" class="question-card" hidden>
         <div class="question-bar"><span id="question-position">1 / 5</span><span id="question-level" class="chip">基本</span></div>
         <div class="progress-track"><span id="session-progress"></span></div>
-        <p class="question-eyebrow">次の2次関数の頂点を答えましょう。</p>
+        <p class="question-eyebrow" id="question-topic">次の2次関数の頂点を答えましょう。</p>
         <h2 id="question-prompt" class="question-prompt" tabindex="-1"></h2>
         <div id="answer-options" class="answer-grid" role="group" aria-label="答えを選択"></div>
         <div id="explanation" class="explanation" hidden tabindex="-1"></div>
@@ -132,6 +166,6 @@
 
     <section class="booth-section" aria-labelledby="booth-title"><div><p class="eyebrow">STUDY MATERIALS</p><h2 id="booth-title">もっと深く学ぶための教材</h2><p>詳しい途中式・演習・復習用のPDF教材を制作予定です。高校数学の商品はまだ公開していません。</p></div><a class="btn btn-outline" href="https://studyworks.booth.pm/" target="_blank" rel="noopener noreferrer">BOOTHショップを見る <span class="sr-only">（別のタブで開く）</span> ↗</a></section>
   </main>
-  <footer class="site-footer"><div class="container"><p>夢中になる高校数学 <span>学習Web v1 ・ 2026</span></p><p>数学Ⅰ「平方完成・頂点」先行公開版 / 全32問</p></div></footer>
+  <footer class="site-footer"><div class="container"><p>夢中になる高校数学 <span>学習Web v1.1 ・ 2026</span></p><p>数学Ⅰ「平方完成・頂点」「最大・最小」 / 全76問</p></div></footer>
 </body>
 </html>
